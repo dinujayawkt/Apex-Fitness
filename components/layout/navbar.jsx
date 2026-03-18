@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useTheme } from "next-themes";
 import ThemeToggle from "../ui/theme-toggle";
 
 const navItems = [
@@ -14,6 +15,65 @@ const navItems = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
+  const { resolvedTheme, theme } = useTheme();
+  const isDark = (resolvedTheme || theme) === "dark";
+
+  useEffect(() => {
+    const sectionIds = ["top", ...navItems.map((item) => item.href.replace("#", ""))];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section) => section !== null);
+
+    if (!sections.length) {
+      return undefined;
+    }
+
+    const updateActiveSection = () => {
+      const headerHeightRaw = window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue("--header-height")
+        .trim();
+      const headerHeight = Number.parseFloat(headerHeightRaw || "80") || 80;
+      const marker = window.scrollY + headerHeight + window.innerHeight * 0.33;
+
+      let nextActive = "top";
+      sections.forEach((section) => {
+        if (marker >= section.offsetTop - 1) {
+          nextActive = section.id;
+        }
+      });
+
+      setActiveSection(nextActive);
+    };
+
+    updateActiveSection();
+
+    let rafId = null;
+    const onScroll = () => {
+      if (rafId !== null) {
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(() => {
+        updateActiveSection();
+        rafId = null;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, []);
 
   const handleLogoClick = (event) => {
     event.preventDefault();
@@ -26,7 +86,13 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-(--line) bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur-[8px]">
+    <header
+      className={`sticky top-0 z-30 border-b ${
+        isDark
+          ? "border-[color-mix(in_srgb,var(--mist)_20%,transparent)] bg-[#121212]"
+          : "border-[#d8d8d8] bg-[#f4f2ee]"
+      }`}
+    >
       <div className="container flex min-h-[5rem] items-center justify-between gap-4 max-[700px]:min-h-[4.4rem]">
         <a
           href="#top"
@@ -34,10 +100,22 @@ export default function Navbar() {
           aria-label="Apex Fitness home"
           onClick={handleLogoClick}
         >
-          <span className="aspect-square w-[1.9rem] rounded-full border-2 border-(--gold) bg-[radial-gradient(circle_at_30%_30%,var(--gold-soft),var(--gold))] shadow-[0_0_0_5px_color-mix(in_srgb,var(--gold)_16%,transparent)]" />
+          <span
+            className={`aspect-square w-[2rem] rounded-full border-2 border-(--gold) bg-[radial-gradient(circle_at_30%_30%,var(--gold-soft),var(--gold))] ${
+              isDark
+                ? "shadow-[0_0_0_5px_color-mix(in_srgb,var(--gold)_16%,transparent)]"
+                : "shadow-[0_0_0_5px_color-mix(in_srgb,var(--gold)_24%,transparent)]"
+            }`}
+          />
           <span>
-            <strong className="block text-base tracking-[0.14em] text-(--gold)">APEX FITNESS</strong>
-            <small className="block text-[0.65rem] tracking-[0.24em] text-(--muted)">
+            <strong className="block text-base font-bold tracking-[0.14em] text-(--gold)">APEX FITNESS</strong>
+            <small
+              className={`block text-[0.72rem] font-semibold tracking-[0.2em] ${
+                isDark
+                  ? "text-[color-mix(in_srgb,var(--mist)_70%,transparent)]"
+                  : "text-[color-mix(in_srgb,var(--text)_46%,transparent)]"
+              }`}
+            >
               SPORTS CENTER
             </small>
           </span>
@@ -48,21 +126,32 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="text-[0.82rem] uppercase tracking-[0.14em] text-(--muted) transition-colors hover:text-(--gold)"
+              onClick={() => setActiveSection(item.href.replace("#", ""))}
+              className={`relative text-[0.82rem] font-semibold uppercase tracking-[0.11em] transition-colors ${
+                activeSection === item.href.replace("#", "")
+                  ? "text-(--gold)"
+                  : "text-[color-mix(in_srgb,var(--text)_84%,transparent)] hover:text-(--text) dark:text-[color-mix(in_srgb,var(--mist)_78%,transparent)] dark:hover:text-white"
+              }`}
+              aria-current={activeSection === item.href.replace("#", "") ? "page" : undefined}
             >
               {item.label}
+              <span
+                className={`absolute -bottom-2 left-0 h-[2px] bg-(--gold) transition-all duration-300 ${
+                  activeSection === item.href.replace("#", "") ? "w-full" : "w-0"
+                }`}
+              />
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-[0.6rem]">
+        <div className="flex items-center gap-[1rem]">
           <ThemeToggle />
           <a href="#contact" className="btn btn--solid hidden min-h-[2.6rem] lg:inline-flex">
             Join Now
           </a>
           <button
             type="button"
-            className="inline-flex min-h-[2.4rem] min-w-[2.4rem] items-center justify-center border border-(--line) bg-transparent text-(--text) lg:hidden"
+            className="inline-flex min-h-[2.4rem] min-w-[2.4rem] items-center justify-center border border-(--line) bg-transparent text-(--text) dark:border-[color-mix(in_srgb,var(--mist)_44%,transparent)] dark:text-[color-mix(in_srgb,var(--mist)_88%,transparent)] lg:hidden"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle mobile menu"
             aria-expanded={menuOpen}
@@ -79,8 +168,14 @@ export default function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-[0.82rem] uppercase tracking-[0.12em]"
-                onClick={() => setMenuOpen(false)}
+                className={`text-[0.82rem] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                  activeSection === item.href.replace("#", "") ? "text-(--gold)" : "text-(--text)"
+                }`}
+                onClick={() => {
+                  setActiveSection(item.href.replace("#", ""));
+                  setMenuOpen(false);
+                }}
+                aria-current={activeSection === item.href.replace("#", "") ? "page" : undefined}
               >
                 {item.label}
               </a>

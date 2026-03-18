@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
-  const activeTheme = resolvedTheme || theme || "dark";
+  const activeTheme = resolvedTheme || theme || "light";
   const isDark = activeTheme === "dark";
 
   return (

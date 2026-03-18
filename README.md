@@ -28,12 +28,32 @@ Responsive promotional website for a local gym brand launch.
 - Hero, About, Services, Plans, Trainers, and Contact sections
 - Responsive navigation + mobile menu
 - Theme switcher (dark/light)
-- Contact form with client-side validation and success feedback
+- Contact form with client-side validation and EmailJS delivery
 - Reusable component structure:
 	- `components/layout`
 	- `components/sections`
 	- `components/ui`
 	- `components/providers`
+
+## EmailJS Setup
+
+1. Create an EmailJS account and configure:
+- a service
+- an email template
+
+2. Copy `.env.example` to `.env.local` and add your EmailJS values:
+
+```bash
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+3. Ensure your EmailJS template contains matching variables:
+- `from_name`
+- `from_email`
+- `reply_to`
+- `message`
 
 ## Setup Instructions
 

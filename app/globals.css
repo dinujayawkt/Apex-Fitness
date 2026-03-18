@@ -1,2 +1,178 @@
 @import "tailwindcss";
 
+:root {
+	--header-height: 5rem;
+	--gold: #c89b11;
+	--gold-soft: #e2be46;
+	--brown: #2f2614;
+	--black: #0a0a0a;
+	--charcoal: #2f3138;
+	--mist: #dfdfdd;
+	--bg: #e8e6e2;
+	--panel: #f3f1ec;
+	--text: #131313;
+	--muted: #4d4d4d;
+	--line: #bdb9b1;
+}
+
+.dark {
+	--bg: #0a0a0a;
+	--panel: #111111;
+	--text: #dfdfdd;
+	--muted: #9ea1a7;
+	--line: #2f3138;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background:
+		radial-gradient(circle at 20% 10%, rgba(200, 155, 17, 0.08), transparent 28%),
+		radial-gradient(circle at 80% 30%, rgba(200, 155, 17, 0.09), transparent 34%),
+		var(--bg);
+	color: var(--text);
+	font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.container {
+	width: min(1200px, 92vw);
+	margin-inline: auto;
+}
+
+.section {
+	padding: clamp(4.5rem, 8vw, 7.5rem) 0;
+	min-height: calc(100dvh - var(--header-height));
+	display: flex;
+	align-items: center;
+}
+
+section[id] {
+	scroll-margin-top: var(--header-height);
+}
+
+.btn {
+	border: 1px solid transparent;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 2.75rem;
+	padding: 0 1.2rem;
+	text-transform: uppercase;
+	font-size: 0.78rem;
+	letter-spacing: 0.12em;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.22s ease;
+}
+
+.btn--solid {
+	background: var(--gold);
+	color: #090909;
+}
+
+.btn--solid:hover {
+	background: var(--gold-soft);
+}
+
+.btn--ghost {
+	border-color: var(--line);
+	color: var(--text);
+}
+
+.btn--ghost:hover {
+	border-color: var(--gold);
+	color: var(--gold);
+}
+
+.hero {
+	position: relative;
+	overflow: clip;
+	height: calc(100dvh - var(--header-height));
+	padding-top: clamp(2rem, 4vw, 3.5rem);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+	background-size: 40px 40px;
+	pointer-events: none;
+}
+
+.radar-card {
+	width: min(450px, 42vw);
+	aspect-ratio: 1;
+	border-radius: 999px;
+	border: 1px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+	display: grid;
+	place-items: center;
+	text-transform: uppercase;
+	letter-spacing: 0.13em;
+	font-size: 0.72rem;
+	color: var(--gold);
+	background:
+		radial-gradient(circle at center, color-mix(in srgb, var(--gold) 18%, transparent), transparent 58%),
+		conic-gradient(from 180deg, transparent, color-mix(in srgb, var(--gold) 8%, transparent), transparent);
+	position: relative;
+}
+
+.radar-card::before,
+.radar-card::after {
+	content: "";
+	position: absolute;
+	border-radius: 50%;
+	border: 1px dashed color-mix(in srgb, var(--gold) 22%, transparent);
+}
+
+.radar-card::before {
+	inset: 16%;
+}
+
+.radar-card::after {
+	inset: 32%;
+}
+
+@media (max-width: 1024px) {
+	.section {
+		min-height: calc(100dvh - var(--header-height));
+		display: flex;
+		align-items: center;
+		padding: clamp(3.75rem, 7vw, 6rem) 0;
+	}
+
+	.hero {
+		height: auto;
+		min-height: calc(100dvh - var(--header-height));
+	}
+
+	.radar-card {
+		width: 100%;
+		max-width: 450px;
+		margin-inline: auto;
+	}
+}
+
+@media (max-width: 700px) {
+	:root {
+		--header-height: 4.4rem;
+	}
+}
+

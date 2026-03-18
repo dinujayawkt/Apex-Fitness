@@ -75,7 +75,8 @@ section[id] {
 	letter-spacing: 0.12em;
 	font-weight: 700;
 	cursor: pointer;
-	transition: all 0.22s ease;
+	transition: transform 0.24s ease, box-shadow 0.24s ease, background-color 0.22s ease,
+		color 0.22s ease, border-color 0.22s ease;
 }
 
 .btn--solid {
@@ -85,6 +86,8 @@ section[id] {
 
 .btn--solid:hover {
 	background: var(--gold-soft);
+	transform: translateY(-1px);
+	box-shadow: 0 8px 20px color-mix(in srgb, var(--gold) 24%, transparent);
 }
 
 .btn--ghost {
@@ -95,6 +98,11 @@ section[id] {
 .btn--ghost:hover {
 	border-color: var(--gold);
 	color: var(--gold);
+	transform: translateY(-1px);
+}
+
+.btn:active {
+	transform: translateY(0) scale(0.98);
 }
 
 .hero {

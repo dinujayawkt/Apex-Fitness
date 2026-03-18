@@ -11,7 +11,7 @@ export default function PlansSection() {
           {planItems.map((plan, index) => (
             <AnimateInView key={plan.name} delay={0.08 * index}>
               <article
-                className={`grid content-start gap-[0.95rem] border border-(--line) bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] p-[1.35rem] ${
+                className={`grid content-start gap-[0.95rem] border border-(--line) bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] p-[1.35rem] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_12px_30px_color-mix(in_srgb,var(--gold)_18%,transparent)] ${
                   plan.highlight
                     ? "border-(--gold) shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--gold)_65%,transparent)]"
                     : ""

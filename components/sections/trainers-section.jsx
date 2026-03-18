@@ -17,7 +17,7 @@ export default function TrainersSection() {
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {trainerItems.map((trainer, index) => (
             <AnimateInView key={trainer.name} delay={0.08 * index}>
-              <article className="border border-(--line) bg-[color-mix(in_srgb,var(--panel)_45%,transparent)]">
+              <article className="border border-(--line) bg-[color-mix(in_srgb,var(--panel)_45%,transparent)] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_10px_26px_color-mix(in_srgb,var(--gold)_18%,transparent)]">
                 <div className={`min-h-64 ${trainerToneClasses[index % 4]}`} />
                 <div className="p-[0.95rem]">
                   <h3 className="m-0 text-[0.95rem] uppercase tracking-[0.05em]">{trainer.name}</h3>

@@ -16,7 +16,7 @@ export default function ServicesSection() {
             return (
               <AnimateInView key={service.title} delay={0.07 * index}>
                 <article
-                  className="border p-[1.1rem]"
+                  className="border p-[1.1rem] transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_10px_28px_color-mix(in_srgb,var(--gold)_18%,transparent)]"
                   style={{
                     borderColor: "var(--line)",
                     background: "color-mix(in srgb, var(--panel) 45%, transparent)",

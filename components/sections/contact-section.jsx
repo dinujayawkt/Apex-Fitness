@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionHeading from "../ui/section-heading";
+import { sendContactEmail } from "../../services/emailjs-service";
 
 const initialState = {
   name: "",
@@ -12,7 +13,23 @@ const initialState = {
 export default function ContactSection() {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!successMessage) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setSuccessMessage("");
+    }, 4000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [successMessage]);
 
   const validate = () => {
     const nextErrors = {};
@@ -41,18 +58,33 @@ export default function ContactSection() {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
+    setErrorMessage("");
     setSuccessMessage("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!validate()) {
       return;
     }
 
-    setSuccessMessage("Thanks! Your message has been sent. We will contact you shortly.");
-    setFormData(initialState);
+    try {
+      setIsSubmitting(true);
+      setErrorMessage("");
+
+      await sendContactEmail(formData);
+
+      setSuccessMessage("Thanks! Your message has been sent. We will contact you shortly.");
+      setFormData(initialState);
+    } catch (error) {
+      const details = error instanceof Error ? error.message : "Unknown error.";
+      console.error("EmailJS send failed:", details);
+      setErrorMessage(`Email send failed: ${details}`);
+      setSuccessMessage("");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -133,9 +165,15 @@ export default function ContactSection() {
           />
           {errors.message ? <small className="mb-[0.45rem] text-[#ff795c]">{errors.message}</small> : null}
 
-          <button type="submit" className="btn btn--solid">
-            Send Message
+          <button type="submit" className="btn btn--solid disabled:cursor-not-allowed disabled:opacity-70" disabled={isSubmitting}>
+            {isSubmitting ? "Sending..." : "Send Message"}
           </button>
+
+          {errorMessage ? (
+            <p className="mt-2 border border-[color-mix(in_srgb,#da4a35_65%,transparent)] bg-[color-mix(in_srgb,#da4a35_14%,transparent)] px-[0.8rem] py-[0.6rem] text-[#ff846f]">
+              {errorMessage}
+            </p>
+          ) : null}
 
           {successMessage ? (
             <p className="mt-2 border border-[color-mix(in_srgb,#89ce8d_60%,transparent)] bg-[color-mix(in_srgb,#89ce8d_14%,transparent)] px-[0.8rem] py-[0.6rem] text-[#89ce8d]">

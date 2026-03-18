@@ -17,25 +17,27 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
   const { resolvedTheme, theme } = useTheme();
-  const isDark = (resolvedTheme || theme) === "dark";
+  const activeTheme = resolvedTheme || theme || "light";
+  const isDark = activeTheme === "dark";
 
   useEffect(() => {
-    const sectionIds = ["top", ...navItems.map((item) => item.href.replace("#", ""))];
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section) => section !== null);
-
-    if (!sections.length) {
-      return undefined;
-    }
-
     const updateActiveSection = () => {
+      const sectionIds = ["top", ...navItems.map((item) => item.href.replace("#", ""))];
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter((section) => section !== null)
+        .sort((a, b) => a.offsetTop - b.offsetTop);
+
+      if (!sections.length) {
+        return;
+      }
+
       const headerHeightRaw = window
         .getComputedStyle(document.documentElement)
         .getPropertyValue("--header-height")
         .trim();
       const headerHeight = Number.parseFloat(headerHeightRaw || "80") || 80;
-      const marker = window.scrollY + headerHeight + window.innerHeight * 0.33;
+      const marker = window.scrollY + headerHeight + 120;
 
       let nextActive = "top";
       sections.forEach((section) => {
@@ -75,6 +77,20 @@ export default function Navbar() {
     };
   }, []);
 
+  const scrollToSection = (event, href) => {
+    event.preventDefault();
+    const sectionId = href.replace("#", "");
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    setActiveSection(sectionId);
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", href);
+  };
+
   const handleLogoClick = (event) => {
     event.preventDefault();
     const topSection = document.getElementById("top");
@@ -87,16 +103,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-30 border-b ${
+      className={`sticky top-0 z-30 ${
         isDark
-          ? "border-[color-mix(in_srgb,var(--mist)_20%,transparent)] bg-[#121212]"
-          : "border-[#d8d8d8] bg-[#f4f2ee]"
+          ? "bg-[#121212]"
+          : "bg-[#f4f2ee]"
       }`}
     >
       <div className="container flex min-h-[5rem] items-center justify-between gap-4 max-[700px]:min-h-[4.4rem]">
         <a
           href="#top"
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 ml-[-92px]"
           aria-label="Apex Fitness home"
           onClick={handleLogoClick}
         >
@@ -121,12 +137,12 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden gap-8 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-10 lg:mx-1 lg:flex xl:mx-12 xl:gap-14" aria-label="Primary navigation">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              onClick={() => setActiveSection(item.href.replace("#", ""))}
+              onClick={(event) => scrollToSection(event, item.href)}
               className={`relative text-[0.82rem] font-semibold uppercase tracking-[0.11em] transition-colors ${
                 activeSection === item.href.replace("#", "")
                   ? "text-(--gold)"
@@ -144,7 +160,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-[1rem]">
+        <div className="flex items-center gap-[1rem] mr-[-102px]">
           <ThemeToggle />
           <a href="#contact" className="btn btn--solid hidden min-h-[2.6rem] lg:inline-flex">
             Join Now
@@ -162,7 +178,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-(--line) bg-(--panel)">
+        <div className="border-t border-(--line) bg-(--panel) ">
           <nav className="container flex flex-col gap-[0.85rem] py-4" aria-label="Mobile navigation">
             {navItems.map((item) => (
               <a
@@ -171,8 +187,8 @@ export default function Navbar() {
                 className={`text-[0.82rem] font-semibold uppercase tracking-[0.1em] transition-colors ${
                   activeSection === item.href.replace("#", "") ? "text-(--gold)" : "text-(--text)"
                 }`}
-                onClick={() => {
-                  setActiveSection(item.href.replace("#", ""));
+                onClick={(event) => {
+                  scrollToSection(event, item.href);
                   setMenuOpen(false);
                 }}
                 aria-current={activeSection === item.href.replace("#", "") ? "page" : undefined}

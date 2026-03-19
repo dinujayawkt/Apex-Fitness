@@ -74,6 +74,16 @@ html:not(.dark) .section .font-semibold {
 font-weight: 700 !important;
 }
 
+::selection {
+background: color-mix(in srgb, var(--black) 78%, transparent) !important;
+color: var(--gold-soft) !important;
+}
+
+::-moz-selection {
+background: color-mix(in srgb, var(--black) 78%, transparent) !important;
+color: var(--gold-soft) !important;
+}
+
 a {
 color: inherit;
 text-decoration: none;

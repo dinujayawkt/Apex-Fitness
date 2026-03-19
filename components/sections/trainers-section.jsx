@@ -50,6 +50,17 @@ export default function TrainersSection() {
           <h2 className="m-0 text-[clamp(2rem,4.8vw,3.4rem)] leading-none text-(--text) uppercase [font-family:var(--font-heading),Impact,sans-serif] dark:text-white">
             Meet Our Proficient Trainer
           </h2>
+          <p
+            className="mx-auto mt-4 mb-0 max-w-[64ch] text-[1rem] leading-[1.8]"
+            style={{
+              color: isDark ? "color-mix(in srgb, var(--mist) 78%, transparent)" : "#111827",
+              opacity: 1,
+              fontWeight: 500,
+            }}
+          >
+            Work with certified experts in strength, nutrition, and recovery who tailor each plan
+            to your goals and keep your progress measurable every week.
+          </p>
         </AnimateInView>
 
         <div ref={cardsRef} className="mt-12 grid gap-9 sm:grid-cols-2 xl:grid-cols-4">

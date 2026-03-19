@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, ChevronLeft, ChevronRight, Diamond } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useRef, useState } from "react";
 import SectionHeading from "../ui/section-heading";
 import AnimateInView from "../ui/animate-in-view";
@@ -16,25 +17,25 @@ const getWrappedDistance = (index, activeIndex, length) => {
   }, direct);
 };
 
-const getCardPositionClass = (distance) => {
+const getCardPositionClass = (distance, isDark) => {
   if (distance === 0) {
     return "left-1/2 z-20 w-[84%] -translate-x-1/2 scale-100 opacity-100 md:w-[65%] lg:w-[44%]";
   }
 
   if (distance === 1) {
-    return "left-[82%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] opacity-[0.28] md:left-[78%] md:w-[48%] lg:left-[75%] lg:w-[31%]";
+    return `left-[82%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[78%] md:w-[48%] lg:left-[75%] lg:w-[31%]`;
   }
 
   if (distance === -1) {
-    return "left-[18%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] opacity-[0.28] md:left-[22%] md:w-[48%] lg:left-[25%] lg:w-[31%]";
+    return `left-[18%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[22%] md:w-[48%] lg:left-[25%] lg:w-[31%]`;
   }
 
   if (distance === 2) {
-    return "left-[106%] z-0 w-[62%] -translate-x-1/2 scale-[0.82] opacity-[0.2] md:left-[102%] md:w-[42%] lg:left-[98%] lg:w-[28%]";
+    return `left-[106%] z-0 w-[62%] -translate-x-1/2 scale-[0.82] ${isDark ? "opacity-[0.2]" : "opacity-[0.7]"} md:left-[102%] md:w-[42%] lg:left-[98%] lg:w-[28%]`;
   }
 
   if (distance === -2) {
-    return "left-[-6%] z-0 w-[62%] -translate-x-1/2 scale-[0.82] opacity-[0.2] md:left-[-2%] md:w-[42%] lg:left-[2%] lg:w-[28%]";
+    return `left-[-6%] z-0 w-[62%] -translate-x-1/2 scale-[0.82] ${isDark ? "opacity-[0.2]" : "opacity-[0.7]"} md:left-[-2%] md:w-[42%] lg:left-[2%] lg:w-[28%]`;
   }
 
   return "pointer-events-none left-1/2 z-0 w-[42%] -translate-x-1/2 scale-[0.7] opacity-0";
@@ -42,6 +43,8 @@ const getCardPositionClass = (distance) => {
 
 export default function PlansSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const touchStartX = useRef(null);
 
   const goPrev = () => {
@@ -106,13 +109,13 @@ export default function PlansSection() {
             >
               {planItems.map((plan, index) => {
                 const distance = getWrappedDistance(index, activeIndex, planItems.length);
-                const positionClass = getCardPositionClass(distance);
+                const positionClass = getCardPositionClass(distance, isDark);
                 const isActiveCard = distance === 0;
 
                 return (
                   <article
                     key={plan.name}
-                    className={`absolute top-3 grid content-start gap-[1.02rem] overflow-hidden rounded-[1rem] border bg-[linear-gradient(180deg,#191a1f,#13141a)] p-[1.15rem] text-[color-mix(in_srgb,var(--mist)_90%,transparent)] shadow-[0_14px_28px_color-mix(in_srgb,var(--black)_24%,transparent)] transition-all duration-[450ms] ease-out sm:p-[1.4rem] ${positionClass} ${
+                    className={`absolute top-3 grid content-start gap-[1.02rem] overflow-hidden rounded-[1rem] border bg-[linear-gradient(180deg,#191a1f,#13141a)] p-[1.15rem] text-[#e2e6ee] shadow-[0_14px_28px_color-mix(in_srgb,var(--black)_24%,transparent)] transition-all duration-[450ms] ease-out sm:p-[1.4rem] ${positionClass} ${
                       plan.highlight
                         ? "border-[color-mix(in_srgb,var(--gold)_90%,transparent)] shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--gold)_58%,transparent),0_16px_34px_color-mix(in_srgb,var(--gold)_20%,transparent)]"
                         : ""
@@ -126,7 +129,13 @@ export default function PlansSection() {
                     aria-current={distance === 0 ? "true" : undefined}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="m-0 text-[0.98rem] font-semibold text-(--gold)">{plan.name}</h3>
+                      <h3
+                        className={`m-0 text-[0.98rem] font-semibold ${
+                          isActiveCard ? "text-(--gold)" : "text-white"
+                        }`}
+                      >
+                        {plan.name}
+                      </h3>
                       <span className="grid h-7 w-7 place-items-center rounded-full border border-[color-mix(in_srgb,var(--gold)_52%,transparent)] bg-transparent text-(--gold)">
                         <Diamond size={11} />
                       </span>
@@ -134,12 +143,12 @@ export default function PlansSection() {
                     <p className="m-0 text-[3rem] leading-[1.05] [font-family:var(--font-heading),Impact,sans-serif] text-white">
                       {plan.price}
                     </p>
-                    <p className="m-0 text-[0.95rem] text-[color-mix(in_srgb,var(--mist)_78%,transparent)]">
+                    <p className="m-0 text-[0.95rem] text-[#c8cfdb]">
                       {plan.period.replace("/", "").trim()}
                     </p>
                     {isActiveCard ? (
                       <>
-                        <p className="m-0 text-[0.94rem] leading-[1.6] text-[color-mix(in_srgb,var(--mist)_72%,transparent)]">
+                        <p className="m-0 text-[0.94rem] leading-[1.6] text-[#cfd5df]">
                           {plan.description}
                         </p>
                         <div className="h-px w-full bg-[color-mix(in_srgb,var(--mist)_26%,transparent)]" />
@@ -147,7 +156,7 @@ export default function PlansSection() {
                           {plan.features.map((feature) => (
                             <li
                               key={feature}
-                              className="flex items-start gap-2 text-[0.9rem] leading-[1.5] text-[color-mix(in_srgb,var(--mist)_82%,transparent)]"
+                              className="flex items-start gap-2 text-[0.9rem] leading-[1.5] text-[#d8dde6]"
                             >
                               <Check size={13} className="mt-[0.14rem] shrink-0 text-(--gold)" />
                               <span>{feature}</span>
@@ -163,11 +172,12 @@ export default function PlansSection() {
                       </>
                     ) : (
                       <>
-                        <p className="m-0 text-[0.84rem] font-medium text-[color-mix(in_srgb,var(--mist)_62%,transparent)]">
-                          {plan.period.replace("/", "").trim()}
-                        </p>
                         <div className="h-px w-full bg-[color-mix(in_srgb,var(--mist)_16%,transparent)]" />
-                        <div className="h-[7.8rem]" />
+                        <div className="h-[7.8rem] overflow-hidden">
+                          <p className="m-0 text-[0.86rem] leading-[1.55] text-[#d8dde6]">
+                            {plan.description}
+                          </p>
+                        </div>
                       </>
                     )}
                   </article>

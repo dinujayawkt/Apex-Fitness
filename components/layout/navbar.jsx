@@ -106,7 +106,7 @@ export default function Navbar() {
       className={`sticky top-0 z-30 ${
         isDark
           ? "bg-[#121212]"
-          : "bg-[#f4f2ee]"
+          : "bg-white"
       }`}
     >
       <div className="container flex min-h-[5rem] items-center justify-between gap-4 max-[700px]:min-h-[4.4rem]">
@@ -143,17 +143,17 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               onClick={(event) => scrollToSection(event, item.href)}
-              className={`relative text-[0.82rem] font-semibold uppercase tracking-[0.11em] transition-colors ${
+              className={`group relative text-[0.82rem] font-semibold uppercase tracking-[0.11em] transition-all duration-200 ${
                 activeSection === item.href.replace("#", "")
                   ? "text-(--gold)"
-                  : "text-[color-mix(in_srgb,var(--text)_84%,transparent)] hover:text-(--text) dark:text-[color-mix(in_srgb,var(--mist)_78%,transparent)] dark:hover:text-white"
+                  : "text-[color-mix(in_srgb,var(--text)_84%,transparent)] hover:-translate-y-[1px] hover:text-(--gold) dark:text-[color-mix(in_srgb,var(--mist)_78%,transparent)] dark:hover:text-(--gold-soft)"
               }`}
               aria-current={activeSection === item.href.replace("#", "") ? "page" : undefined}
             >
               {item.label}
               <span
                 className={`absolute -bottom-2 left-0 h-[2px] bg-(--gold) transition-all duration-300 ${
-                  activeSection === item.href.replace("#", "") ? "w-full" : "w-0"
+                  activeSection === item.href.replace("#", "") ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
             </a>
@@ -178,14 +178,16 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-(--line) bg-(--panel) ">
+        <div className={`border-t border-(--line) ${isDark ? "bg-(--panel)" : "bg-white"}`}>
           <nav className="container flex flex-col gap-[0.85rem] py-4" aria-label="Mobile navigation">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[0.82rem] font-semibold uppercase tracking-[0.1em] transition-colors ${
-                  activeSection === item.href.replace("#", "") ? "text-(--gold)" : "text-(--text)"
+                className={`text-[0.82rem] font-semibold uppercase tracking-[0.1em] transition-colors duration-200 ${
+                  activeSection === item.href.replace("#", "")
+                    ? "text-(--gold)"
+                    : "text-(--text) hover:text-(--gold)"
                 }`}
                 onClick={(event) => {
                   scrollToSection(event, item.href);

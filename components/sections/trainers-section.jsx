@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ChevronRight, Facebook, Instagram, Twitter } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import AnimateInView from "../ui/animate-in-view";
 import { trainerItems } from "../../data/home-data";
@@ -16,6 +17,8 @@ const trainerDetails = [
 export default function TrainersSection() {
   const [activeTrainer, setActiveTrainer] = useState(null);
   const cardsRef = useRef(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -38,13 +41,13 @@ export default function TrainersSection() {
   }, []);
 
   return (
-    <section id="trainers" className="section bg-[#14181f] dark:bg-[#0a0a0a]">
+    <section id="trainers" className="section bg-white dark:bg-[#0a0a0a]">
       <div className="container">
         <AnimateInView className="text-center" delay={0.03}>
           <p className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-(--gold)">
             Our Trainers
           </p>
-          <h2 className="m-0 text-[clamp(2rem,4.8vw,3.4rem)] leading-none text-white uppercase [font-family:var(--font-heading),Impact,sans-serif]">
+          <h2 className="m-0 text-[clamp(2rem,4.8vw,3.4rem)] leading-none text-(--text) uppercase [font-family:var(--font-heading),Impact,sans-serif] dark:text-white">
             Meet Our Proficient Trainer
           </h2>
         </AnimateInView>
@@ -55,7 +58,14 @@ export default function TrainersSection() {
 
             return (
               <AnimateInView key={trainer.name} delay={0.05 * index}>
-                <article className="overflow-hidden border border-[color-mix(in_srgb,var(--gold)_24%,transparent)] bg-[linear-gradient(180deg,#141820,#12151b)] transition-transform duration-300 hover:-translate-y-[4px]">
+                <article
+                  className="overflow-hidden bg-[linear-gradient(180deg,#141820,#12151b)] transition-transform duration-300 hover:-translate-y-[4px]"
+                  style={{
+                    borderWidth: isDark ? "1px" : "0",
+                    borderStyle: "solid",
+                    borderColor: isDark ? "color-mix(in srgb, var(--gold) 24%, transparent)" : "transparent",
+                  }}
+                >
                   <button
                     type="button"
                     onClick={() => setActiveTrainer((prev) => (prev === index ? null : index))}
@@ -71,8 +81,20 @@ export default function TrainersSection() {
                         className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--black)_70%,transparent),transparent_58%)]" />
-                      <div className="absolute inset-x-0 bottom-0 border-t border-[color-mix(in_srgb,var(--gold)_20%,transparent)] bg-[color-mix(in_srgb,var(--black)_58%,transparent)] px-[1.05rem] py-[0.95rem]">
-                        <h3 className="m-0 text-[1.01rem] font-semibold uppercase tracking-[0.06em] text-white">
+                      <div
+                        className="absolute inset-x-0 bottom-0 bg-[color-mix(in_srgb,var(--black)_58%,transparent)] px-[1.05rem] py-[0.95rem]"
+                        style={{
+                          borderTopWidth: isDark ? "1px" : "0",
+                          borderTopStyle: "solid",
+                          borderTopColor: isDark
+                            ? "color-mix(in srgb, var(--gold) 20%, transparent)"
+                            : "transparent",
+                        }}
+                      >
+                        <h3
+                          className="m-0 text-[1.01rem] font-semibold uppercase tracking-[0.06em]"
+                          style={{ color: "#ffffff" }}
+                        >
                           {trainer.name}
                         </h3>
                         <p className="m-0 mt-1 text-[0.77rem] font-medium uppercase tracking-[0.16em] text-(--gold)">
@@ -81,7 +103,16 @@ export default function TrainersSection() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between border-t border-[color-mix(in_srgb,var(--gold)_20%,transparent)] px-[1.05rem] py-[0.78rem]">
+                    <div
+                      className="flex items-center justify-between px-[1.05rem] py-[0.78rem]"
+                      style={{
+                        borderTopWidth: isDark ? "1px" : "0",
+                        borderTopStyle: "solid",
+                        borderTopColor: isDark
+                          ? "color-mix(in srgb, var(--gold) 20%, transparent)"
+                          : "transparent",
+                      }}
+                    >
                       <span className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-[color-mix(in_srgb,var(--mist)_84%,transparent)]">
                         View Profile
                       </span>
@@ -95,9 +126,16 @@ export default function TrainersSection() {
                   </button>
 
                   <div
-                    className={`grid overflow-hidden border-t border-[color-mix(in_srgb,var(--gold)_20%,transparent)] bg-[color-mix(in_srgb,var(--black)_52%,transparent)] px-[1.05rem] text-[0.93rem] leading-[1.75] text-[color-mix(in_srgb,var(--mist)_84%,transparent)] transition-all duration-300 ${
+                    className={`grid overflow-hidden bg-[color-mix(in_srgb,var(--black)_52%,transparent)] px-[1.05rem] text-[0.93rem] leading-[1.75] text-[color-mix(in_srgb,var(--mist)_84%,transparent)] transition-all duration-300 ${
                       isActive ? "max-h-64 py-[1rem] opacity-100" : "max-h-0 py-0 opacity-0"
                     }`}
+                    style={{
+                      borderTopWidth: isDark ? "1px" : "0",
+                      borderTopStyle: "solid",
+                      borderTopColor: isDark
+                        ? "color-mix(in srgb, var(--gold) 20%, transparent)"
+                        : "transparent",
+                    }}
                   >
                     <p className="m-0">{trainerDetails[index]}</p>
                     <div className="mt-3 flex items-center gap-2">

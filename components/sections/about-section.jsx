@@ -54,7 +54,6 @@ export default function AboutSection() {
       window.clearInterval(intervalId);
     };
   }, [activeHighlight]);
-
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!boxesRef.current) {

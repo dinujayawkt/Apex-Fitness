@@ -18,6 +18,9 @@ export const metadata = {
   title: "Apex Fitness Sports Center",
   description:
     "Responsive gym promotional website with services, plans, trainers, and inquiry form.",
+  icons: {
+    icon: "/dumbell.png",
+  },
 };
 
 export default function RootLayout({ children }) {

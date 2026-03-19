@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import {
   ArrowUpRight,
   Dumbbell,
@@ -19,23 +20,31 @@ const serviceIcons = [Dumbbell, Flame, Salad, Activity, HeartPulse, Scale];
 
 export default function ServicesSection() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const selectedService = serviceItems[selectedIndex] ?? serviceItems[0];
   const SelectedIcon = serviceIcons[selectedIndex % serviceIcons.length];
 
   return (
-    <section id="services" className="section bg-[#14181f] dark:bg-[#0a0a0a]">
+    <section id="services" className="section bg-white dark:bg-[#0a0a0a]">
       <div className="container">
         <AnimateInView className="text-center">
           <p className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-(--gold)">
             Fitness and Gym Services
           </p>
-          <h2 className="m-0 text-[clamp(2rem,4.6vw,3.4rem)] leading-none text-white uppercase [font-family:var(--font-heading),Impact,sans-serif]">
+          <h2 className="m-0 text-[clamp(2rem,4.6vw,3.4rem)] leading-none text-(--text) uppercase [font-family:var(--font-heading),Impact,sans-serif] dark:text-white">
             Our Professional Gym Services
           </h2>
         </AnimateInView>
 
         <AnimateInView delay={0.08} className="mx-auto mt-5 max-w-[72ch] text-center" y={18}>
-          <p className="m-0 text-[1rem] leading-[1.9] text-[color-mix(in_srgb,var(--mist)_72%,transparent)]">
+          <p
+            className={`m-0 text-[1rem] leading-[1.9] ${
+              isDark
+                ? "text-[color-mix(in_srgb,var(--mist)_72%,transparent)]"
+                : "text-[color-mix(in_srgb,var(--text)_88%,transparent)]"
+            }`}
+          >
             Select any service from the list. The preview updates instantly with service
             information and a relevant image so members can quickly understand what is included.
           </p>
@@ -66,7 +75,7 @@ export default function ServicesSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.36, ease: "easeOut" }}
-                className="absolute left-[28%] top-[1.6rem] z-10 w-[72%] p-[1.15rem] text-white shadow-[0_15px_40px_rgba(0,0,0,0.28)] sm:top-[2.1rem] sm:p-[1.4rem]"
+                className="absolute left-[28%] top-[1.6rem] z-10 w-[72%] p-[1.15rem] text-[#f2f4f8] shadow-[0_15px_40px_rgba(0,0,0,0.28)] sm:top-[2.1rem] sm:p-[1.4rem]"
                 style={{
                   background: "color-mix(in srgb, var(--charcoal) 78%, #4a4a4a 22%)",
                   clipPath: "polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%)",
@@ -75,10 +84,16 @@ export default function ServicesSection() {
                 <span className="grid h-[2.3rem] w-[2.3rem] place-items-center rounded-[0.35rem] bg-(--gold) text-black">
                   <SelectedIcon size={16} />
                 </span>
-                <h3 className="mb-0 mt-[0.85rem] text-[1.25rem] font-semibold leading-[1.2] sm:text-[1.45rem]">
+                <h3
+                  className="mb-0 mt-[0.85rem] text-[1.25rem] font-bold leading-[1.2] sm:text-[1.45rem]"
+                  style={{ color: "#f4f7fc" }}
+                >
                   {selectedService.title}
                 </h3>
-                <p className="mb-0 mt-[0.62rem] text-[0.88rem] leading-[1.65] text-[color-mix(in_srgb,var(--mist)_80%,transparent)] sm:text-[0.92rem]">
+                <p
+                  className="mb-0 mt-[0.62rem] text-[0.9rem] leading-[1.65] font-semibold sm:text-[0.95rem]"
+                  style={{ color: "#dbe2ee" }}
+                >
                   {selectedService.description}
                 </p>
                 <a
@@ -91,7 +106,7 @@ export default function ServicesSection() {
             </AnimatePresence>
           </AnimateInView>
 
-          <AnimateInView className="text-white" delay={0.08} y={20}>
+          <AnimateInView className={isDark ? "text-white" : "text-black"} delay={0.08} y={20}>
             {serviceItems.map((service, index) => {
               const Icon = serviceIcons[index % serviceIcons.length];
               const isActive = index === selectedIndex;
@@ -104,7 +119,7 @@ export default function ServicesSection() {
                   className={`group flex w-full items-center justify-between gap-3 border-b px-[0.15rem] py-[0.82rem] text-left transition-colors duration-200 ${
                     isActive
                       ? "border-[color-mix(in_srgb,var(--gold)_58%,transparent)]"
-                      : "border-[color-mix(in_srgb,var(--mist)_18%,transparent)]"
+                      : "border-(--line)"
                   }`}
                   aria-pressed={isActive}
                 >
@@ -113,7 +128,9 @@ export default function ServicesSection() {
                       className={`grid h-[1.6rem] w-[1.6rem] place-items-center rounded-[0.25rem] border ${
                         isActive
                           ? "border-[color-mix(in_srgb,var(--gold)_68%,transparent)] bg-[color-mix(in_srgb,var(--gold)_14%,transparent)] text-(--gold)"
-                          : "border-[color-mix(in_srgb,var(--mist)_28%,transparent)] text-[color-mix(in_srgb,var(--mist)_66%,transparent)]"
+                          : isDark
+                            ? "border-[color-mix(in_srgb,var(--mist)_28%,transparent)] text-[color-mix(in_srgb,var(--mist)_66%,transparent)]"
+                            : "border-[color-mix(in_srgb,var(--text)_28%,transparent)] text-[color-mix(in_srgb,var(--text)_88%,transparent)]"
                       }`}
                     >
                       <Icon size={13} />
@@ -122,7 +139,9 @@ export default function ServicesSection() {
                       className={`text-[0.84rem] tracking-[0.02em] sm:text-[0.9rem] ${
                         isActive
                           ? "font-semibold text-(--gold)"
-                          : "font-medium text-[color-mix(in_srgb,var(--mist)_82%,transparent)]"
+                          : isDark
+                            ? "font-medium text-[color-mix(in_srgb,var(--mist)_82%,transparent)]"
+                            : "font-semibold text-[color-mix(in_srgb,var(--text)_90%,transparent)]"
                       }`}
                     >
                       {service.title}
@@ -133,7 +152,9 @@ export default function ServicesSection() {
                     className={`shrink-0 transition-transform duration-200 ${
                       isActive
                         ? "translate-x-[2px] text-(--gold)"
-                        : "text-[color-mix(in_srgb,var(--mist)_52%,transparent)] group-hover:translate-x-[2px]"
+                        : isDark
+                          ? "text-[color-mix(in_srgb,var(--mist)_52%,transparent)] group-hover:translate-x-[2px]"
+                          : "text-[color-mix(in_srgb,var(--text)_82%,transparent)] group-hover:translate-x-[2px]"
                     }`}
                   />
                 </button>
@@ -142,7 +163,7 @@ export default function ServicesSection() {
 
             <a
               href="#contact"
-              className="mt-[0.9rem] inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--mist)_72%,transparent)] transition-colors hover:text-(--gold)"
+              className="mt-[0.9rem] inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--text)_72%,transparent)] transition-colors hover:text-(--gold) dark:text-[color-mix(in_srgb,var(--mist)_72%,transparent)]"
             >
               View All Services <ArrowUpRight size={14} />
             </a>

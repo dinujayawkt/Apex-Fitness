@@ -19,7 +19,7 @@ export default function ThemeToggle() {
     >
       <span className="relative h-[1.62rem] w-[3.34rem] rounded-full bg-[#d7d7d7] dark:bg-[color-mix(in_srgb,var(--black)_36%,transparent)]">
         <motion.span
-          className="absolute top-[1px] left-[1px] grid h-[1.5rem] w-[1.5rem] place-items-center rounded-full bg-[color-mix(in_srgb,var(--mist)_96%,transparent)] text-(--black)"
+          className="absolute top-[1px] left-[1px] grid h-[1.5rem] w-[1.5rem] place-items-center rounded-full bg-[#f5f5f5] text-(--black) dark:bg-[color-mix(in_srgb,var(--mist)_96%,transparent)]"
           animate={{ x: isDark ? 0 : 28 }}
           transition={{ type: "spring", stiffness: 380, damping: 26 }}
         >

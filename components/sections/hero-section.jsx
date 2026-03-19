@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import AnimateInView from "../ui/animate-in-view";
 import CountUp from "../ui/count-up";
 
@@ -14,32 +15,48 @@ const heroMetrics = [
 
 const heroSlides = [
   {
-    image:
-      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: {
+      light:
+        "https://img.freepik.com/free-photo/shirtless-male-bodybuilder-holding-dumbbells_7502-4802.jpg?semt=ais_hybrid&w=740&q=80",
+      dark:
+        "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    },
     lead: "Be Fit",
     accent: "Be Stronger",
     blurb: "Unleash your potential with focused training and elite coaching.",
     badge: "Strength Track",
   },
   {
-    image:
-      "https://images.pexels.com/photos/136405/pexels-photo-136405.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: {
+      light:
+        "https://www.shutterstock.com/image-photo/man-woman-wearing-sports-clothes-600nw-2468336731.jpg",
+      dark:
+        "https://images.pexels.com/photos/136405/pexels-photo-136405.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    },
     lead: "Train Hard",
     accent: "Move Better",
     blurb: "Build athletic power with precision programming and recovery sessions.",
     badge: "Athletic Mode",
   },
   {
-    image:
-      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: {
+      light:
+        "",
+      dark:
+        "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    },
     lead: "Stay Focused",
     accent: "Stay Consistent",
     blurb: "Transform your routine into measurable progress week by week.",
     badge: "Performance Lab",
   },
   {
-    image:
-      "https://images.pexels.com/photos/6740050/pexels-photo-6740050.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: {
+      light:
+        "",
+      dark:
+        "https://images.pexels.com/photos/6740050/pexels-photo-6740050.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    },
     lead: "Lift Smart",
     accent: "Recover Faster",
     blurb: "Train with intent and bounce back stronger using guided protocols.",
@@ -49,6 +66,9 @@ const heroSlides = [
 
 export default function HeroSection() {
   const [slideIndex, setSlideIndex] = useState(0);
+  const { resolvedTheme } = useTheme();
+  const activeTheme = resolvedTheme === "dark" ? "dark" : "light";
+  const isDark = activeTheme === "dark";
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -57,17 +77,16 @@ export default function HeroSection() {
 
     return () => window.clearInterval(intervalId);
   }, []);
-
   const activeSlide = heroSlides[slideIndex];
 
   return (
     <section className="hero bg-(--bg)" id="top">
-      <div className="hero-slide-wrap" aria-hidden="true">
+      <div className={`hero-slide-wrap ${isDark ? "" : "hidden"}`} aria-hidden="true">
         {heroSlides.map((slide, index) => (
           <div
-            key={slide.image}
+            key={`${slide.badge}-${activeTheme}`}
             className={`hero-slide ${index === slideIndex ? "is-active" : ""}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
+            style={{ backgroundImage: isDark ? `url(${slide.image.dark})` : "none" }}
           />
         ))}
       </div>
@@ -90,13 +109,25 @@ export default function HeroSection() {
                 exit={{ opacity: 0, x: -46 }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <h1 className="m-0 text-[clamp(2.1rem,7.2vw,5.2rem)] leading-[0.92] uppercase text-[color-mix(in_srgb,var(--mist)_96%,transparent)] [font-family:var(--font-heading),Impact,sans-serif] [text-shadow:0_5px_22px_rgba(0,0,0,0.55)] max-[700px]:text-[clamp(1.9rem,12.8vw,3.6rem)]">
+                <h1
+                  className={`m-0 text-[clamp(2.1rem,7.2vw,5.2rem)] leading-[0.92] uppercase [font-family:var(--font-heading),Impact,sans-serif] max-[700px]:text-[clamp(1.9rem,12.8vw,3.6rem)] ${
+                    isDark
+                      ? "text-[color-mix(in_srgb,var(--mist)_96%,transparent)] [text-shadow:0_5px_22px_rgba(0,0,0,0.55)]"
+                      : "text-(--text)"
+                  }`}
+                >
                   <span className="block">{activeSlide.lead}</span>
                   <span className="block whitespace-nowrap text-(--gold-soft) max-[700px]:whitespace-normal">
                     {activeSlide.accent}
                   </span>
                 </h1>
-                <p className="mt-4 mb-0 max-w-[58ch] leading-[1.8] text-[color-mix(in_srgb,var(--mist)_88%,transparent)] [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
+                <p
+                  className={`mt-4 mb-0 max-w-[58ch] leading-[1.8] font-bold ${
+                    isDark
+                      ? "text-[color-mix(in_srgb,var(--mist)_88%,transparent)] [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]"
+                      : "text-[color-mix(in_srgb,var(--text)_94%,transparent)]"
+                  }`}
+                >
                   {activeSlide.blurb} Elite training systems built for real-world results and
                   consistent momentum.
                 </p>
@@ -149,7 +180,13 @@ export default function HeroSection() {
             <h3 className="m-0 text-[clamp(1.6rem,2vw,2rem)] text-(--gold) [font-family:var(--font-heading),Impact,sans-serif]">
               <CountUp to={metric.value} suffix={metric.suffix} />
             </h3>
-            <p className="mt-1 mb-0 text-[0.7rem] uppercase tracking-[0.15em] text-[color-mix(in_srgb,var(--mist)_82%,transparent)]">
+            <p
+              className={`mt-1 mb-0 text-[0.72rem] uppercase tracking-[0.15em] font-bold ${
+                isDark
+                  ? "text-[color-mix(in_srgb,var(--mist)_82%,transparent)]"
+                  : "text-[color-mix(in_srgb,var(--text)_86%,transparent)]"
+              }`}
+            >
               {metric.label}
             </p>
           </AnimateInView>

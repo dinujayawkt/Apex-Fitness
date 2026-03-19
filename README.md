@@ -2,26 +2,24 @@
 
 Responsive promotional website for a local gym brand launch.
 
-## Figma Design Link
-
-- Add your Figma file link here: `https://figma.com/...`
-
-## GitHub Repository Link
-
-- Add your repository link here: `https://github.com/...`
-
-## Live Deployed Link
-
-- Add your deployed link here: `https://...`
-
 ## Tech Stack
 
-- Next.js (App Router)
-- React
-- CSS (global design system)
-- Framer Motion (scroll reveal animations)
-- next-themes (light/dark mode toggle)
-- lucide-react (icons)
+- **Next.js** (App Router)
+- **React** 19
+- **CSS** (global design system)
+- **Framer Motion** (scroll reveal animations)
+- **next-themes** (light/dark mode toggle)
+- **EmailJS** (contact form delivery)
+- **lucide-react** (icons)
+
+## Live Link
+
+https://apex-fitness-bytd.vercel.app/
+
+## Links
+
+- **Figma Design**: https://www.figma.com/design/LIyV06LjcDDBLGHGb4mW1G/Gym-Promotional-site?node-id=0-1&t=WvYaBDnmywXYKHm0-1
+- **GitHub Repository**: https://github.com/dinujayawkt/Apex-Fitness
 
 ## Features
 

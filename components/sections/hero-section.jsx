@@ -96,14 +96,14 @@ export default function HeroSection() {
 
       <div className="hero-overlay" aria-hidden="true" />
 
-      <div className="container relative grid flex-1 items-center gap-[clamp(1.4rem,4vw,4rem)] pb-4 md:grid-cols-[1.1fr_1fr]">
-        <div className="max-w-[62ch]">
+      <div className="container relative grid flex-1 items-center gap-[clamp(1.4rem,4vw,4rem)] pb-4 lg:grid-cols-[1.1fr_1fr]">
+        <div className="max-w-[62ch] max-[900px]:max-w-[54ch] max-[700px]:max-w-[36ch]">
           <AnimateInView delay={0.02} y={16}>
             <p className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-(--gold)">
               Est. 2026 · Premium Fitness · {activeSlide.badge}
             </p>
           </AnimateInView>
-          <div className="min-h-[15.6rem] max-[900px]:min-h-[14.2rem] max-[700px]:min-h-[13.4rem]">
+          <div className="min-h-[15.6rem] max-[900px]:min-h-[13.6rem] max-[700px]:min-h-[12.4rem]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`hero-copy-${slideIndex}`}
@@ -125,7 +125,7 @@ export default function HeroSection() {
                   </span>
                 </h1>
                 <p
-                  className={`mt-4 mb-0 max-w-[58ch] leading-[1.8] font-bold ${
+                  className={`mt-4 mb-0 max-w-[58ch] leading-[1.8] font-bold max-[700px]:leading-[1.65] ${
                     isDark
                       ? "text-[color-mix(in_srgb,var(--mist)_88%,transparent)] [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]"
                       : "text-[color-mix(in_srgb,var(--text)_94%,transparent)]"
@@ -137,7 +137,7 @@ export default function HeroSection() {
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="mt-2 flex flex-wrap gap-[0.8rem]">
+          <div className="mt-2 flex flex-wrap gap-[0.65rem] max-[420px]:gap-2">
             <a href="#plans" className="btn btn--solid">
               Start Training
             </a>

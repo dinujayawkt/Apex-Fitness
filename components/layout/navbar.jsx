@@ -115,10 +115,10 @@ export default function Navbar() {
           : "bg-white"
       }`}
     >
-      <div className="container flex min-h-[5rem] items-center justify-between gap-4 max-[700px]:min-h-[4.4rem]">
+      <div className="container flex min-h-20 items-center justify-between gap-3 max-[700px]:min-h-[4.4rem]">
         <a
           href="#top"
-          className="flex items-center gap-2.5 ml-[-92px]"
+          className="flex min-w-0 items-center gap-2"
           aria-label="Apex Fitness home"
           onClick={handleLogoClick}
         >
@@ -130,10 +130,10 @@ export default function Navbar() {
             className="h-[3.45rem] w-[3.45rem] object-contain max-[700px]:h-[2.85rem] max-[700px]:w-[2.85rem]"
             priority
           />
-          <span>
-            <strong className="block text-base font-bold tracking-[0.14em] text-(--gold)">APEX FITNESS</strong>
+          <span className="min-w-0">
+            <strong className="block truncate text-[0.92rem] font-bold tracking-[0.12em] text-(--gold) max-[420px]:text-[0.78rem]">APEX FITNESS</strong>
             <small
-              className={`block text-[0.72rem] font-semibold tracking-[0.2em] ${
+              className={`block text-[0.66rem] font-semibold tracking-[0.16em] max-[420px]:hidden ${
                 isDark
                   ? "text-[color-mix(in_srgb,var(--mist)_70%,transparent)]"
                   : "text-[color-mix(in_srgb,var(--text)_46%,transparent)]"
@@ -153,13 +153,13 @@ export default function Navbar() {
               className={`group relative text-[0.82rem] font-semibold uppercase tracking-[0.11em] transition-all duration-200 ${
                 activeSection === item.href.replace("#", "")
                   ? "text-(--gold)"
-                  : "text-[color-mix(in_srgb,var(--text)_84%,transparent)] hover:-translate-y-[1px] hover:text-(--gold) dark:text-[color-mix(in_srgb,var(--mist)_78%,transparent)] dark:hover:text-(--gold-soft)"
+                  : "text-[color-mix(in_srgb,var(--text)_84%,transparent)] hover:-translate-y-px hover:text-(--gold) dark:text-[color-mix(in_srgb,var(--mist)_78%,transparent)] dark:hover:text-(--gold-soft)"
               }`}
               aria-current={activeSection === item.href.replace("#", "") ? "page" : undefined}
             >
               {item.label}
               <span
-                className={`absolute -bottom-2 left-0 h-[2px] bg-(--gold) transition-all duration-300 ${
+                className={`absolute -bottom-2 left-0 h-0.5 bg-(--gold) transition-all duration-300 ${
                   activeSection === item.href.replace("#", "") ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
@@ -167,9 +167,12 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-[1.45rem] mr-[-102px]">
+        <div className="flex shrink-0 items-center gap-2.5 min-[420px]:gap-3.5">
           <ThemeToggle />
-          <a href="#contact" className="btn btn--solid hidden h-10! min-h-10! min-w-[7.6rem]! rounded-full px-6! lg:inline-flex">
+          <a
+            href="#contact"
+            className="btn btn--solid hidden h-10! min-h-10! min-w-[6.9rem]! rounded-full px-4! text-[0.76rem] min-[860px]:inline-flex min-[1024px]:min-w-[7.6rem]! min-[1024px]:px-6!"
+          >
             Join Now
           </a>
           <button
@@ -191,7 +194,7 @@ export default function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-[0.82rem] font-semibold uppercase tracking-[0.1em] transition-colors duration-200 ${
+                className={`text-[0.82rem] font-semibold uppercase tracking-widest transition-colors duration-200 ${
                   activeSection === item.href.replace("#", "")
                     ? "text-(--gold)"
                     : "text-(--text) hover:text-(--gold)"

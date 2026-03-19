@@ -19,15 +19,15 @@ const getWrappedDistance = (index, activeIndex, length) => {
 
 const getCardPositionClass = (distance, isDark) => {
   if (distance === 0) {
-    return "left-1/2 z-20 w-[84%] -translate-x-1/2 scale-100 opacity-100 md:w-[65%] lg:w-[44%]";
+    return "left-1/2 z-20 w-[84%] max-[640px]:w-[74%] -translate-x-1/2 scale-100 opacity-100 md:w-[65%] lg:w-[44%]";
   }
 
   if (distance === 1) {
-    return `left-[82%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[78%] md:w-[48%] lg:left-[75%] lg:w-[31%]`;
+    return `left-[82%] max-[640px]:left-[88%] z-10 w-[68%] max-[640px]:w-[58%] -translate-x-1/2 scale-[0.86] max-[640px]:scale-[0.82] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[78%] md:w-[48%] lg:left-[75%] lg:w-[31%]`;
   }
 
   if (distance === -1) {
-    return `left-[18%] z-10 w-[68%] -translate-x-1/2 scale-[0.86] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[22%] md:w-[48%] lg:left-[25%] lg:w-[31%]`;
+    return `left-[18%] max-[640px]:left-[12%] z-10 w-[68%] max-[640px]:w-[58%] -translate-x-1/2 scale-[0.86] max-[640px]:scale-[0.82] ${isDark ? "opacity-[0.28]" : "opacity-[0.9]"} md:left-[22%] md:w-[48%] lg:left-[25%] lg:w-[31%]`;
   }
 
   if (distance === 2) {
@@ -109,7 +109,7 @@ export default function PlansSection() {
             </button>
 
             <div
-              className="relative mx-auto h-[36rem] w-[min(980px,calc(100%-5.5rem))] overflow-hidden md:h-[38rem]"
+              className="relative mx-auto h-144 max-[640px]:h-126 w-[min(980px,calc(100%-5.5rem))] max-[640px]:w-[min(980px,calc(100%-4.1rem))] overflow-hidden md:h-152"
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
@@ -121,7 +121,7 @@ export default function PlansSection() {
                 return (
                   <article
                     key={plan.name}
-                    className={`absolute top-3 grid content-start gap-[1.02rem] overflow-hidden rounded-[1rem] border bg-[linear-gradient(180deg,#191a1f,#13141a)] p-[1.15rem] text-[#e2e6ee] shadow-[0_14px_28px_color-mix(in_srgb,var(--black)_24%,transparent)] transition-all duration-[450ms] ease-out sm:p-[1.4rem] ${positionClass} ${
+                    className={`absolute top-3 max-[640px]:top-2 grid content-start gap-[1.02rem] max-[640px]:gap-[0.72rem] overflow-hidden rounded-2xl border bg-[linear-gradient(180deg,#191a1f,#13141a)] p-[1.15rem] max-[640px]:p-[0.85rem] text-[#e2e6ee] shadow-[0_14px_28px_color-mix(in_srgb,var(--black)_24%,transparent)] transition-all duration-450 ease-out sm:p-[1.4rem] ${positionClass} ${
                       plan.highlight
                         ? "border-[color-mix(in_srgb,var(--gold)_90%,transparent)] shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--gold)_58%,transparent),0_16px_34px_color-mix(in_srgb,var(--gold)_20%,transparent)]"
                         : ""
@@ -135,33 +135,30 @@ export default function PlansSection() {
                     aria-current={distance === 0 ? "true" : undefined}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <h3
-                        className="m-0 text-[0.98rem] font-semibold"
-                        style={{ color: "#d4a318", opacity: 1 }}
-                      >
+                      <h3 className="m-0 text-[0.98rem] max-[640px]:text-[0.85rem] font-semibold" style={{ color: "#d4a318", opacity: 1 }}>
                         {plan.name}
                       </h3>
-                      <span className="grid h-7 w-7 place-items-center rounded-full border border-[color-mix(in_srgb,var(--gold)_52%,transparent)] bg-transparent text-(--gold)">
+                      <span className="grid h-7 w-7 max-[640px]:h-6 max-[640px]:w-6 place-items-center rounded-full border border-[color-mix(in_srgb,var(--gold)_52%,transparent)] bg-transparent text-(--gold)">
                         <Diamond size={11} />
                       </span>
                     </div>
-                    <p className="m-0 text-[3rem] leading-[1.05] [font-family:var(--font-heading),Impact,sans-serif] text-white">
+                    <p className="m-0 text-[3rem] max-[640px]:text-[2.25rem] leading-[1.05] [font-family:var(--font-heading),Impact,sans-serif] text-white">
                       {plan.price}
                     </p>
-                    <p className="m-0 text-[0.95rem] text-[#c8cfdb]">
+                    <p className="m-0 text-[0.95rem] max-[640px]:text-[0.82rem] text-[#c8cfdb]">
                       {plan.period.replace("/", "").trim()}
                     </p>
                     {isActiveCard ? (
                       <>
-                        <p className="m-0 text-[0.94rem] leading-[1.6] text-[#cfd5df]">
+                        <p className="m-0 text-[0.94rem] max-[640px]:text-[0.82rem] max-[640px]:leading-[1.45] leading-[1.6] text-[#cfd5df]">
                           {plan.description}
                         </p>
                         <div className="h-px w-full bg-[color-mix(in_srgb,var(--mist)_26%,transparent)]" />
-                        <ul className="m-0 grid list-none gap-[0.52rem] p-0">
+                        <ul className="m-0 grid list-none gap-[0.52rem] max-[640px]:gap-[0.38rem] p-0">
                           {plan.features.map((feature) => (
                             <li
                               key={feature}
-                              className="flex items-start gap-2 text-[0.9rem] leading-[1.5] text-[#d8dde6]"
+                              className="flex items-start gap-2 max-[640px]:gap-1.5 text-[0.9rem] max-[640px]:text-[0.8rem] max-[640px]:leading-[1.35] leading-normal text-[#d8dde6]"
                             >
                               <Check size={13} className="mt-[0.14rem] shrink-0 text-(--gold)" />
                               <span>{feature}</span>
@@ -170,7 +167,7 @@ export default function PlansSection() {
                         </ul>
                         <a
                           href="#contact"
-                          className="mt-[0.25rem] inline-flex min-h-[2.7rem] w-full items-center justify-center rounded-[0.45rem] border border-(--gold) bg-transparent px-[1rem] text-[1.04rem] font-semibold text-(--gold) transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--gold)_12%,transparent)]"
+                          className="mt-1 inline-flex min-h-[2.7rem] max-[640px]:min-h-[2.35rem] w-full items-center justify-center rounded-[0.45rem] border border-(--gold) bg-transparent px-4 max-[640px]:px-[0.7rem] text-[1.04rem] max-[640px]:text-[0.9rem] font-semibold text-(--gold) transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--gold)_12%,transparent)]"
                         >
                           Get membership
                         </a>
@@ -178,8 +175,8 @@ export default function PlansSection() {
                     ) : (
                       <>
                         <div className="h-px w-full bg-[color-mix(in_srgb,var(--mist)_16%,transparent)]" />
-                        <div className="h-[7.8rem] overflow-hidden">
-                          <p className="m-0 text-[0.86rem] leading-[1.55] text-[#d8dde6]">
+                        <div className="h-[7.8rem] max-[640px]:h-[5.8rem] overflow-hidden">
+                          <p className="m-0 text-[0.86rem] max-[640px]:text-[0.76rem] max-[640px]:leading-[1.35] leading-[1.55] text-[#d8dde6]">
                             {plan.description}
                           </p>
                         </div>

@@ -38,6 +38,7 @@ margin: 0;
 background: var(--bg);
 color: var(--text);
 font-family: var(--font-body), "Segoe UI", sans-serif;
+overflow-x: hidden;
 }
 
 .dark body {
@@ -231,5 +232,19 @@ min-height: calc(100dvh - var(--header-height));
 
 html {
 font-size: 16px;
+}
+
+.container {
+width: min(1200px, 94vw);
+}
+
+.hero {
+padding-top: 1.4rem;
+}
+
+.dark .hero-overlay {
+background:
+linear-gradient(92deg, color-mix(in srgb, var(--black) 78%, transparent) 2%, transparent 62%),
+linear-gradient(to top, color-mix(in srgb, var(--black) 60%, transparent), transparent 45%);
 }
 }

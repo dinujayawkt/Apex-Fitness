@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer
@@ -7,9 +9,17 @@ export default function Footer() {
       <div className="container flex flex-wrap items-center justify-between gap-4">
         <a
           href="#top"
-          className="m-0 text-[0.82rem] font-bold tracking-[0.13em] text-(--gold) transition-opacity hover:opacity-85"
+          className="m-0 flex items-center gap-1.5 text-[0.82rem] font-bold tracking-[0.13em] text-(--gold) transition-opacity hover:opacity-85"
+          aria-label="Apex Fitness home"
         >
-          APEX FITNESS
+          <Image
+            src="/bodybuilding-emblem-and-gym-logo-design-template-free-vector%203.png"
+            alt="Apex Fitness logo"
+            width={34}
+            height={34}
+            className="h-[2.55rem] w-[2.55rem] object-contain"
+          />
+          <span>APEX FITNESS</span>
         </a>
         <a
           href="#contact"

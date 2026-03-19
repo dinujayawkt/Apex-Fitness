@@ -1,8 +1,8 @@
-# Apex Fitness Sports Center
+# Apex Fitness Sports Center 🥊🏋️‍♀️
 
 Responsive promotional website for a local gym brand launch.
 
-## Tech Stack
+## Tech Stack 🛠
 
 - **Next.js** (App Router)
 - **React** 19
@@ -12,16 +12,16 @@ Responsive promotional website for a local gym brand launch.
 - **EmailJS** (contact form delivery)
 - **lucide-react** (icons)
 
-## Live Link
+## Live Link 🔗
 
 https://apex-fitness-bytd.vercel.app/
 
-## Links
+## Links 🔗
 
 - **Figma Design**: https://www.figma.com/design/LIyV06LjcDDBLGHGb4mW1G/Gym-Promotional-site?node-id=0-1&t=WvYaBDnmywXYKHm0-1
 - **GitHub Repository**: https://github.com/dinujayawkt/Apex-Fitness
 
-## Features
+## Features ⚙
 
 - Hero, About, Services, Plans, Trainers, and Contact sections
 - Responsive navigation + mobile menu
@@ -33,7 +33,7 @@ https://apex-fitness-bytd.vercel.app/
 	- `components/ui`
 	- `components/providers`
 
-## EmailJS Setup
+## EmailJS Setup 📩
 
 1. Create an EmailJS account and configure:
 - a service

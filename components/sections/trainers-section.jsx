@@ -150,15 +150,27 @@ export default function TrainersSection() {
                   >
                     <p className="m-0">{trainerDetails[index]}</p>
                     <div className="mt-3 flex items-center gap-2">
-                      <span className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)">
+                      <a
+                        href="/"
+                        aria-label={`${trainer.name} Facebook`}
+                        className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)"
+                      >
                         <Facebook size={14} />
-                      </span>
-                      <span className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)">
+                      </a>
+                      <a
+                        href="/"
+                        aria-label={`${trainer.name} Instagram`}
+                        className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)"
+                      >
                         <Instagram size={14} />
-                      </span>
-                      <span className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)">
+                      </a>
+                      <a
+                        href="/"
+                        aria-label={`${trainer.name} Twitter`}
+                        className="grid h-8 w-8 place-items-center rounded-full border border-[color-mix(in_srgb,var(--mist)_26%,transparent)] text-[color-mix(in_srgb,var(--mist)_76%,transparent)] transition-colors hover:text-(--gold)"
+                      >
                         <Twitter size={14} />
-                      </span>
+                      </a>
                     </div>
                   </div>
                 </article>

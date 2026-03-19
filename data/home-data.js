@@ -4,7 +4,7 @@ export const serviceItems = [
     description:
       "Dedicated one-to-one coaching with customized programming, form correction, and progress accountability.",
     image:
-      "https://images.pexels.com/photos/4167542/pexels-photo-4167542.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773904022/18b0cac101280d58eb45a41ba570323a_o2evza.jpg",
     example: "Service focus: Custom program + weekly reviews",
   },
   {
@@ -147,24 +147,24 @@ export const trainerItems = [
     name: "Alex Kovacs",
     role: "Strength and Athletic Conditioning",
     image:
-      "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773903006/young-adult-doing-indoor-sport-gym_23-2149205542_keet6p.avif",
   },
   {
     name: "Sara Mendez",
     role: "Certified Group Coach",
     image:
-      "https://images.pexels.com/photos/3757376/pexels-photo-3757376.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773903347/beautiful-sportive-girl-posing-with-crossed-arms-dark-wall_ze2su2.jpg",
   },
   {
     name: "James Chen",
     role: "Nutrition and Body Recomposition",
     image:
-      "https://images.pexels.com/photos/3838389/pexels-photo-3838389.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773903349/sportive-man-black-shirt-closing-his-arm-muscles_xnsydh.jpg",
   },
   {
     name: "Rita Patel",
     role: "Yoga and Recovery Specialist",
     image:
-      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773903309/Jaelyn_Israel_Final_Portraits_Miranda_Kelton_Photography-19_u2vkis.webp",
   },
 ];

@@ -17,9 +17,9 @@ const heroSlides = [
   {
     image: {
       light:
-        "https://img.freepik.com/free-photo/shirtless-male-bodybuilder-holding-dumbbells_7502-4802.jpg?semt=ais_hybrid&w=740&q=80",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773891839/img1.wallspic.com-fitness_centre-personal_trainer-trunk-general_fitness_training-white-3155x2061_aj6sgr.jpg",
       dark:
-        "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773893050/1244688_nftz7o.jpg",
     },
     lead: "Be Fit",
     accent: "Be Stronger",
@@ -29,9 +29,9 @@ const heroSlides = [
   {
     image: {
       light:
-        "https://www.shutterstock.com/image-photo/man-woman-wearing-sports-clothes-600nw-2468336731.jpg",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773891843/wp4377335-man-fitness-wallpapers_ilq6nh.jpg",
       dark:
-        "https://images.pexels.com/photos/136405/pexels-photo-136405.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773893060/young-fitness-man-studio_fioal6.jpg",
     },
     lead: "Train Hard",
     accent: "Move Better",
@@ -41,9 +41,9 @@ const heroSlides = [
   {
     image: {
       light:
-        "",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773891857/healthy-fitness-concept-beautiful-american-african-lady-fitness-clothes-workout-with-dumbbel_fvomvd.jpg",
       dark:
-        "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773893050/120965475-fitness-man-desktop-wallpaper-51316_ycnpvy.jpg",
     },
     lead: "Stay Focused",
     accent: "Stay Consistent",
@@ -53,10 +53,10 @@ const heroSlides = [
   {
     image: {
       light:
-        "",
+        "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773902794/handsome-male-fitness-instructor-cross-arms-smiling-confident-workout-gym-standing-white-background_tiynzd.jpg",
       dark:
-        "https://images.pexels.com/photos/6740050/pexels-photo-6740050.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
+      "https://res.cloudinary.com/ddstqdrhm/image/upload/v1773893050/Gym-Boy-Background-Pictures_mgrp4o.jpg",
+      },
     lead: "Lift Smart",
     accent: "Recover Faster",
     blurb: "Train with intent and bounce back stronger using guided protocols.",
@@ -81,12 +81,15 @@ export default function HeroSection() {
 
   return (
     <section className="hero bg-(--bg)" id="top">
-      <div className={`hero-slide-wrap ${isDark ? "" : "hidden"}`} aria-hidden="true">
+      <div className="hero-slide-wrap" aria-hidden="true">
         {heroSlides.map((slide, index) => (
           <div
-            key={`${slide.badge}-${activeTheme}`}
+            key={`${slide.badge}-${activeTheme}-${index}`}
             className={`hero-slide ${index === slideIndex ? "is-active" : ""}`}
-            style={{ backgroundImage: isDark ? `url(${slide.image.dark})` : "none" }}
+            style={{
+              backgroundImage:
+                activeTheme === "dark" ? `url(${slide.image.dark})` : `url(${slide.image.light})`,
+            }}
           />
         ))}
       </div>

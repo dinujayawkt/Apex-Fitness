@@ -82,6 +82,12 @@ export default function PlansSection() {
     <section id="plans" className="section bg-(--bg)">
       <div className="container">
         <SectionHeading eyebrow="Membership Plans" title="Choose Your Level" align="center" />
+        <AnimateInView className="mx-auto mt-4 max-w-[66ch] text-center" y={16}>
+          <p className="m-0 text-[1rem] leading-[1.85] text-[color-mix(in_srgb,var(--text)_82%,transparent)] ">
+            Compare flexible membership options and choose the coaching level that matches your
+            goals, schedule, and training intensity.
+          </p>
+        </AnimateInView>
         <AnimateInView className="mt-8" y={20}>
           <div className="relative overflow-hidden p-1 sm:p-2">
             <button
@@ -130,9 +136,8 @@ export default function PlansSection() {
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h3
-                        className={`m-0 text-[0.98rem] font-semibold ${
-                          isActiveCard ? "text-(--gold)" : "text-white"
-                        }`}
+                        className="m-0 text-[0.98rem] font-semibold"
+                        style={{ color: "#d4a318", opacity: 1 }}
                       >
                         {plan.name}
                       </h3>

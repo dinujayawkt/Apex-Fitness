@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -19,6 +20,7 @@ export default function Navbar() {
   const { resolvedTheme, theme } = useTheme();
   const activeTheme = resolvedTheme || theme || "light";
   const isDark = activeTheme === "dark";
+  const isPastFirstSection = activeSection !== "top";
 
   useEffect(() => {
     const updateActiveSection = () => {
@@ -103,8 +105,12 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-30 ${
-        isDark
+      className={`sticky top-0 z-30 transition-all duration-300 ${
+        isPastFirstSection
+          ? isDark
+            ? "bg-[#121212]/30 backdrop-blur-md border-b border-[color-mix(in_srgb,var(--mist)_18%,transparent)] shadow-[0_10px_30px_rgba(0,0,0,0.24)]"
+            : "bg-white/30 backdrop-blur-md border-b border-[color-mix(in_srgb,var(--text)_12%,transparent)] shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
+          : isDark
           ? "bg-[#121212]"
           : "bg-white"
       }`}
@@ -112,16 +118,17 @@ export default function Navbar() {
       <div className="container flex min-h-[5rem] items-center justify-between gap-4 max-[700px]:min-h-[4.4rem]">
         <a
           href="#top"
-          className="flex items-center gap-3 ml-[-92px]"
+          className="flex items-center gap-2.5 ml-[-92px]"
           aria-label="Apex Fitness home"
           onClick={handleLogoClick}
         >
-          <span
-            className={`aspect-square w-[2rem] rounded-full border-2 border-(--gold) bg-[radial-gradient(circle_at_30%_30%,var(--gold-soft),var(--gold))] ${
-              isDark
-                ? "shadow-[0_0_0_5px_color-mix(in_srgb,var(--gold)_16%,transparent)]"
-                : "shadow-[0_0_0_5px_color-mix(in_srgb,var(--gold)_24%,transparent)]"
-            }`}
+          <Image
+            src="/bodybuilding-emblem-and-gym-logo-design-template-free-vector%203.png"
+            alt="Apex Fitness logo"
+            width={56}
+            height={56}
+            className="h-[3.45rem] w-[3.45rem] object-contain max-[700px]:h-[2.85rem] max-[700px]:w-[2.85rem]"
+            priority
           />
           <span>
             <strong className="block text-base font-bold tracking-[0.14em] text-(--gold)">APEX FITNESS</strong>
@@ -160,9 +167,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-[1rem] mr-[-102px]">
+        <div className="flex items-center gap-[1.45rem] mr-[-102px]">
           <ThemeToggle />
-          <a href="#contact" className="btn btn--solid hidden min-h-[2.6rem] lg:inline-flex">
+          <a href="#contact" className="btn btn--solid hidden h-10! min-h-10! min-w-[7.6rem]! rounded-full px-6! lg:inline-flex">
             Join Now
           </a>
           <button
